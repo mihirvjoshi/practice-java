@@ -20,6 +20,7 @@ public class ProducerConsumerThread {
 		producer1.start();
 		ProducerConsumerThread.Consumer consumer1 = new ProducerConsumerThread().new Consumer();
 		consumer1.start();
+		executor.shutdown();
 	}
 
 	class Producer extends Thread {
