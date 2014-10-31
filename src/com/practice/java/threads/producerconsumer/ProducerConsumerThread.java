@@ -11,15 +11,18 @@ public class ProducerConsumerThread {
 	static int MAX = 10;
 	static int EMPTY = 0;
 	static int COUNTER = 0;
-	Stack<String> itemStack = new Stack<String>();
+	 Stack<String> itemStack = new Stack<String>();
 
 	public static void main(String[] args) {
 
 		executor = Executors.newFixedThreadPool(3);
+		
 		ProducerConsumerThread.Producer producer1 = new ProducerConsumerThread().new Producer();
 		producer1.start();
 		ProducerConsumerThread.Consumer consumer1 = new ProducerConsumerThread().new Consumer();
 		consumer1.start();
+		
+		executor.shutdown();
 	}
 
 	class Producer extends Thread {
@@ -68,6 +71,8 @@ public class ProducerConsumerThread {
 					while (itemStack.size() == EMPTY) {
 						System.out
 								.println("Stack is empty & Consumer is waiting.");
+						
+						COUNTER = 0;
 						try {
 							itemStack.wait();
 						} catch (InterruptedException e) {
