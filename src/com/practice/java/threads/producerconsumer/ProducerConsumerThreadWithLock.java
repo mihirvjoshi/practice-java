@@ -20,7 +20,6 @@ public class ProducerConsumerThreadWithLock {
 
 	public static void main(String[] args) {
 
-		ProducerConsumerThreadWithLock producerConsumer1 = new ProducerConsumerThreadWithLock();
 
 		// WARNING - to create consumer & producer you must have same
 		// producerConsumer instance as below
@@ -34,6 +33,7 @@ public class ProducerConsumerThreadWithLock {
 		// or another (& most preferred) approach is declare lock, hasSpace &
 		// hasItems variables as static so you don't have to worry about using
 		// same producerConsumer1 instance for all new threads.
+		ProducerConsumerThreadWithLock producerConsumer1 = new ProducerConsumerThreadWithLock();
 		ProducerConsumerThreadWithLock.Producer producer1 = producerConsumer1.new Producer();
 		producer1.start();
 		ProducerConsumerThreadWithLock.Consumer consumer1 = producerConsumer1.new Consumer();
@@ -85,8 +85,7 @@ public class ProducerConsumerThreadWithLock {
 				try {
 					lock.lock();
 					while (itemStack.size() == EMPTY) {
-						System.out
-								.println("Stack is empty & Consumer is waiting.");
+						System.out.println("Stack is empty & Consumer is waiting.");
 						try {
 							COUNTER = 0;
 							// wait for the list to have space
@@ -96,8 +95,7 @@ public class ProducerConsumerThreadWithLock {
 						}
 					}
 					itemStack.pop();
-					System.out.println("consuming item number -> "
-							+ itemStack.size());
+					System.out.println("consuming item number -> "+ itemStack.size());
 					hasSpace.signalAll();
 				} finally {
 					lock.unlock();

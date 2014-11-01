@@ -1,4 +1,4 @@
-package com.practice.java.design.patterns.chainofresponsibility;
+package com.practice.java.design.patterns.chainofresponsibility.atm;
 
 import java.util.Scanner;
 
