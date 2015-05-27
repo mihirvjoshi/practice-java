@@ -51,7 +51,7 @@ public class ProducerConsumerThreadWithLock {
 
 		@Override
 		public void run() {
-			while (true) {
+			while (true) { //this is required for continues consumption. if you remove this then it will only execute once.
 				try {
 					lock.lock();
 					while (itemStack.size() >= MAX) {

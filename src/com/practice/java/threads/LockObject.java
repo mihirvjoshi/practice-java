@@ -22,7 +22,7 @@ public class LockObject {
 		// TODO Auto-generated constructor stub
 	}
 
-	public synchronized void  lockMethod(String threadName){
+	public void  lockMethod(String threadName){
 		
 		/**
 		 * it's important to have two different (static) locks for both blocks here because if you lock both synchronized

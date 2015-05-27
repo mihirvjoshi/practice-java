@@ -11,15 +11,15 @@ import java.util.Vector;
  */
 public class CodeReviewSample {
 
-	private ArrayList all_members = new ArrayList();
+	private ArrayList<?> all_members = new ArrayList<Object>();
 	private volatile long groupCount = 0;
 	public static final int GROUP_NATIVE = 0;
 	public static final int GROUP_LDAP = 0;
 	public static final int GROUP_ACTIVEDIR = 2;
 	
-	public boolean addGroup(Hashtable<String, String> groupAtts, ArrayList opts, int groupType) throws Exception{
+	public boolean addGroup(Hashtable<String, String> groupAtts, ArrayList<?> opts, int groupType) throws Exception{
 		
-		Vector new_members = new Vector();
+		Vector<?> new_members = new Vector<Object>();
 
 		if(groupAtts.get("SecurityLevel") != "CONFIDENTIAL"){
 			groupAtts.remove("ownerid");

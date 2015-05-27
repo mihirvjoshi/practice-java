@@ -4,14 +4,13 @@ public class EnrichmentProvider {
 
 	TradeEnrichment firstEnricher;
 	
-	public void EnrichmentProvider(){
+	public EnrichmentProvider() {
 		
 		this.firstEnricher = new BookingEnricher();
 		TradeEnrichment secondEnricher = new PartyEnricher();
 
 		//set enrichment sequence here
-		firstEnricher.setNextEnricher(secondEnricher);
-		
+		firstEnricher.setNextEnricher(secondEnricher);		
 	}
 	
 	
@@ -24,5 +23,4 @@ public class EnrichmentProvider {
 		
 		tradeEnrichmentProvider.firstEnricher.enrichment(account);
 	}
-
 }
