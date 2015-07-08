@@ -5,8 +5,9 @@ public class MyLinkedList {
 	Node last;
 
 	int SIZE = 0;
-	
-	public MyLinkedList() {}
+
+	public MyLinkedList() {
+	}
 
 	MyLinkedList(Node first) {
 		this.first = first;
@@ -97,7 +98,7 @@ public class MyLinkedList {
 	 * 
 	 * @return
 	 */
-	public void reverseButOnly3ConsecutiveNodes() {
+	public void reverseKthNodesOfList(int k) {
 
 		int count = 1;
 
@@ -108,25 +109,26 @@ public class MyLinkedList {
 		MyLinkedList listOfSubLists = new MyLinkedList();
 
 		while (current != null) {
-			
+
 			previous = current;
 			current = current.next;
 			temp = newFirst;
 			newFirst = previous;
 			newFirst.next = temp;
 
-			if(count == 3 || current == null) { // if count is 3 or list ended before count reached to 3
+			if (count == k || current == null) { // if count is 3 or list ended
+													// before count reached to 3
 				count = 0;
 				listOfSubLists.add(new MyLinkedList(newFirst));
 				newFirst = null;
 			}
-			
+
 			++count;
 		}
 
 		MyLinkedList reversedList = mergeSubLists(listOfSubLists);
-			
-//		System.out.println("merged list is =>"+reversedList.toString());
+
+		// System.out.println("merged list is =>"+reversedList.toString());
 		first = reversedList.first;
 	}
 
@@ -137,30 +139,62 @@ public class MyLinkedList {
 		MyLinkedList previousList = null;
 		MyLinkedList tempList = null;
 
-		while(current.next != null) {
+		while (current.next != null) {
 			previousList = reversedList;
-			current=current.next;
+			current = current.next;
 			tempList = (MyLinkedList) current.data;
 			previousList.last.next = tempList.first;
-			reversedList=previousList;
+			reversedList = previousList;
 			reversedList.last = tempList.last;
 		}
+		
 		return reversedList;
 	}
 
-	public MyLinkedList mergeAlternateNodes(MyLinkedList list1, MyLinkedList list2){
+	public MyLinkedList mergeAlternateNodes(MyLinkedList anotherList) {
+
+		Node temp1 = null;
+		Node temp2 = null;
+
+		Node current = null;
+		Node newNode = null;
 		
-		Node current1 = list1.first;
-		Node current2 = list2.first;
-		
-		while(curr){
-			
+		Node current1 = this.first;
+		Node current2 = anotherList.first;
+
+		if (this.SIZE > anotherList.SIZE) {
+			current = current1;
+			newNode = current1;
+		} else {
+			current = current2;
+			newNode = current2;
 		}
-		
+
+		while (current != null) {
+			temp1 = newNode;
+
+			if (this.SIZE > anotherList.SIZE) {
+				temp2 = current2;
+			} else {
+				temp2 = current1;
+			}
+
+			current1 = current1.next;
+			current2 = current2.next;
+			current = current.next;
+//			System.out.println(current1.data);
+			temp1.next = temp2;
+			
+			if(temp2 != null){
+				temp2.next = null;				
+			} else break;
+
+			newNode = temp1;
+		}
+
 		return null;
 	}
-	
-	
+
 	public String toString() {
 		String listAsString = "";
 		Node current = this.first;
@@ -185,11 +219,29 @@ public class MyLinkedList {
 		myList.add(114);
 
 		System.out.println("========================================");
-		myList.reverse();
+//		myList.reverse();
 		System.out.println(myList.toString());
 		System.out.println("========================================");
-		myList.reverseButOnly3ConsecutiveNodes();
+		myList.reverseKthNodesOfList(4);
 		System.out.println(myList.toString());
 		System.out.println("========================================");
+		
+		//merge two lists		
+//		MyLinkedList myList1 = new MyLinkedList();
+//		myList1.add(10);
+//		myList1.add(11);
+//		myList1.add(12);
+//
+//		MyLinkedList myList2 = new MyLinkedList();
+//		myList2.add(110);
+//		myList2.add(111);
+//		myList2.add(112);
+//		myList2.add(113);
+//		myList2.add(114);
+//
+//		System.out.println("========================================");
+//		myList1.mergeAlternateNodes(myList2);
+//		System.out.println("========================================");
+		
 	}
 }

@@ -15,6 +15,7 @@ public class MyGraph {
 	public void addEdges(int src, int dest) {
 		Node source = new Node(src);
 		Node destination = new Node(dest);
+		
 		if(this.vertices.contains(source)){
 			source = this.vertices.get(this.vertices.indexOf(source));	
 			source.getEdges().add(destination);

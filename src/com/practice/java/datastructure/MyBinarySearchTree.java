@@ -149,6 +149,15 @@ public class MyBinarySearchTree {
 	}
 	
 	
+	public MyBinarySearchTree convertsortedArrayToBST(int[] array, int start, int end){
+		
+		MyBinarySearchTree bst = new MyBinarySearchTree(array[0]);
+		
+		
+		
+		return null;		
+	}
+	
 	class Node {
 		int data;
 		private Node left;

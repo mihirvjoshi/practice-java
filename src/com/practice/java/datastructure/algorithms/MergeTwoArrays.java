@@ -4,7 +4,7 @@ package com.practice.java.datastructure.algorithms;
 public class MergeTwoArrays {
 
 	public int[] merge(int a1[], int a2[]) {
-	    int n = a2.length, m = a2.length; 
+	    int n = a1.length, m = a2.length; 
 	    int ind = m + n - 1; // fill resulting array from the end 
 	    m = m-1; n = n-1;
 	    while (m >= 0 && n >= 0) 
