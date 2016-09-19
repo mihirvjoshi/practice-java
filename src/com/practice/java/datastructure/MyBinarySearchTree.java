@@ -2,6 +2,7 @@ package com.practice.java.datastructure;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class MyBinarySearchTree {
 
@@ -121,6 +122,34 @@ public class MyBinarySearchTree {
 		}			
 	}
 	
+	public void depthFirstTraverse(Node root) {
+		Stack<Node> stack = new Stack<Node>();
+		Node current = root;
+		stack.add(current);
+		while(stack.size() > 0) {			
+			current = stack.pop();
+			if(current != null){
+				System.out.println(current.data);
+				stack.add(current.right);
+				stack.add(current.left);
+			}
+		}			
+	}
+
+	public void zigZagTraverse(Node root) {
+		Queue<Node> queue = new LinkedList<Node>();
+		Node current = root;
+		queue.add(current);
+		while(queue.size() > 0) {			
+			current = queue.remove();
+			if(current != null){
+				System.out.println(current.data);
+				queue.add(current.right);
+				queue.add(current.left);
+			}
+		}			
+	}
+
 	public boolean isBinarySearchTree(Node root) {
 		boolean isLeftOk = false;
 		boolean isRightOk = false;
@@ -191,7 +220,7 @@ public class MyBinarySearchTree {
 //		tree.breadFirstTraverse(tree.root);
 
 		//======================= Testing for printing two BST alternately =======================
-		MyBinarySearchTree tree1 = new MyBinarySearchTree(6);
+/*		MyBinarySearchTree tree1 = new MyBinarySearchTree(6);
 		tree1.insertNode(4);
 		tree1.insertNode(10);
 		tree1.insertNode(5);
@@ -208,7 +237,17 @@ public class MyBinarySearchTree {
 		tree2.insertNode(70);
 		
 		tree1.inorderTraverseTwoTrees(tree1.root, tree2.root);
-		//==================================================================================================
+*/		//==================================================================================================
 
+		MyBinarySearchTree tree3 = new MyBinarySearchTree(6);
+		tree3.insertNode(3);
+		tree3.insertNode(8);
+		tree3.insertNode(2);
+		tree3.insertNode(5);
+		tree3.insertNode(7);
+		tree3.insertNode(10);
+		tree3.insertNode(9);
+		tree3.insertNode(4);
+		tree3.zigZagTraverse(tree3.root);
 	}
 }
