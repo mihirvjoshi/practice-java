@@ -1,13 +1,23 @@
 package com.practice.java.datastructure;
 
+
 public class MyLinkedList {
 	Node first;
 	Node last;
 
-	int SIZE = 0;
-
-	public MyLinkedList() {
+	public static class Node {
+		Object data;
+		Node next;
+		Node(Object data) {
+			this.data = data;
+			this.next = null;
+		}
+		Node() {
+			this.next = null;
+		}
 	}
+	int SIZE = 0;
+	public MyLinkedList() {	}
 
 	MyLinkedList(Node first) {
 		this.first = first;
@@ -15,7 +25,6 @@ public class MyLinkedList {
 		while (currentNode.next != null) {
 			currentNode = currentNode.next;
 		}
-
 		this.last = currentNode;
 	}
 
@@ -27,7 +36,6 @@ public class MyLinkedList {
 		} else {
 			Node newNode = new Node(o);
 			Node currentNode = first;
-
 			// here it's important to check current.next for not null value
 			// because
 			// at the last node current will become null and so there will not
@@ -42,37 +50,73 @@ public class MyLinkedList {
 		}
 	}
 
-	private class Node {
-		Object data;
-		Node next;
-
-		Node(Object data) {
-			this.data = data;
-			this.next = null;
+	
+	/**
+	 * This method will identify the middle element of the list in single pass
+	 * with minor auxiliar space and without any extra DS.
+	 */
+	public Node findMiddleOfTheListInSinglePass() {
+		Node current = this.first;
+		Node middle = this.first;
+		int middleElement = 1, currentElement = 1, prevMiddleElelemnt = 1;
+		middle = current;
+		while (current != null) {
+			int devider = currentElement / 2;
+			int modulo = currentElement % 2;
+			middleElement = devider + modulo;
+			if (middleElement != prevMiddleElelemnt) {
+				prevMiddleElelemnt = middleElement;
+				middle = middle.next;
+			}
+			currentElement++;
+			current = current.next;
 		}
-
-		Node() {
-			this.next = null;
-		}
-
+		return middle;
 	}
 
+	public Node reverse(Node head, int n) {
+		Node current = head;
+		Node nextNode = null;
+		Node prev = null;
+		int counter = 0;
+
+		while (current != null && counter != n) {
+			nextNode = current.next;
+			current.next = prev;
+			prev = current;
+			current = nextNode;
+			counter++;
+		}
+		return prev;
+	}
+
+	public Node reverseAgain(){
+	
+		Node prev, next=null;
+		Node current = first;
+		
+		while(current!=null){
+			prev=current;
+			current=current.next;
+			next=current;
+			next.next=prev;
+		}		
+		return next;
+	}
+	
 	public void reverse() {
 		Node previous = null, newFirst = null, temp = null;
 		Node current = first;
 		// newFirst = current;
 		// current = current.next;
 		// newFirst.next = null;
-
 		while (current != null) {
 			// previous = newFirst;
 			// temp = current;
 			// current = current.next;
 			// temp.next = previous;
 			// newFirst = temp;
-
 			previous = current;
-
 			// #1. this step is important in the sequence here because
 			// current(memory address) is still being referred by previous in
 			// last step.
@@ -88,7 +132,6 @@ public class MyLinkedList {
 			newFirst = previous;
 			newFirst.next = temp;
 		}
-
 		first = newFirst;
 	}
 
@@ -122,7 +165,6 @@ public class MyLinkedList {
 				listOfSubLists.add(new MyLinkedList(newFirst));
 				newFirst = null;
 			}
-
 			++count;
 		}
 
@@ -147,7 +189,7 @@ public class MyLinkedList {
 			reversedList = previousList;
 			reversedList.last = tempList.last;
 		}
-		
+
 		return reversedList;
 	}
 
@@ -158,7 +200,7 @@ public class MyLinkedList {
 
 		Node current = null;
 		Node newNode = null;
-		
+
 		Node current1 = this.first;
 		Node current2 = anotherList.first;
 
@@ -182,16 +224,16 @@ public class MyLinkedList {
 			current1 = current1.next;
 			current2 = current2.next;
 			current = current.next;
-//			System.out.println(current1.data);
+			// System.out.println(current1.data);
 			temp1.next = temp2;
-			
-			if(temp2 != null){
-				temp2.next = null;				
-			} else break;
+
+			if (temp2 != null) {
+				temp2.next = null;
+			} else
+				break;
 
 			newNode = temp1;
 		}
-
 		return null;
 	}
 
@@ -211,37 +253,7 @@ public class MyLinkedList {
 		MyLinkedList myList = new MyLinkedList();
 		myList.add(10);
 		myList.add(11);
-		myList.add(12);
-		myList.add(110);
-		myList.add(111);
-		myList.add(112);
-		myList.add(113);
-		myList.add(114);
-
-		System.out.println("========================================");
-//		myList.reverse();
-		System.out.println(myList.toString());
-		System.out.println("========================================");
-		myList.reverseKthNodesOfList(4);
-		System.out.println(myList.toString());
-		System.out.println("========================================");
-		
-		//merge two lists		
-//		MyLinkedList myList1 = new MyLinkedList();
-//		myList1.add(10);
-//		myList1.add(11);
-//		myList1.add(12);
-//
-//		MyLinkedList myList2 = new MyLinkedList();
-//		myList2.add(110);
-//		myList2.add(111);
-//		myList2.add(112);
-//		myList2.add(113);
-//		myList2.add(114);
-//
-//		System.out.println("========================================");
-//		myList1.mergeAlternateNodes(myList2);
-//		System.out.println("========================================");
-		
+		myList.add(11);
+		myList.add(10);
 	}
 }

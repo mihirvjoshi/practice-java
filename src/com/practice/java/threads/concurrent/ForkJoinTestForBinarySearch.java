@@ -13,9 +13,7 @@ public class ForkJoinTestForBinarySearch {
 
     static final int MIN_VALUE = 0;
     static final int MAX_VALUE = 100;
-
     static Random rand = new Random();
-
 
     // a function for retrieving a random int in a specific range
     public static int randInt(int min, int max) {

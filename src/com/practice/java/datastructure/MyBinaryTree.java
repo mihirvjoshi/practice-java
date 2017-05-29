@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.TreeMap;
 
 /**
  * A BinaryTree consists of "nodes"--each "node" is itself a BinaryTree.
@@ -13,108 +14,127 @@ import java.util.Queue;
  * allowing shared subtrees.
  */
 public class MyBinaryTree {
-    /**
-     * The value (data) in this node of the binary tree; may be of
-     * any object type.
-     */
-    public Object value;
-    private MyBinaryTree leftChild;
-    private MyBinaryTree rightChild;
+	
+	Node root;
+	
+	public MyBinaryTree(Node root) {
+		this.root=root;
+	}
+	
+	public MyBinaryTree() {
+		// TODO Auto-generated constructor stub
+	}
 
-    /**
-     * Constructor for BinaryTree.
-     * 
-     * @param value The value to be placed in the root.
-     * @param leftChild The left child of the root (may be null).
-     * @param rightChild The right child of the root (may be null).
-     */
-    public MyBinaryTree(Object value, MyBinaryTree leftChild, MyBinaryTree rightChild) {
-        this.value = value;
-        this.leftChild = leftChild;
-        this.rightChild = rightChild;
-    }
+	/* Function to check if tree is empty */
+	public boolean isEmpty() {
+		return root == null;
+	}
 
-    /**
-     * Constructor for a BinaryTree leaf node (that is, with no children).
-     * 
-     * @param value The value to be placed in the root.
-     */
-    public MyBinaryTree(Object value) {
-        this(value, null, null);
-    }
+	class Node{
+	    /**
+	     * The value (data) in this node of the binary tree; may be of
+	     * any object type.
+	     */
+	    public Object value;
+	    private Node leftChild;
+	    private Node rightChild;
 
-    
-    /**
-     * Getter method for the value in this BinaryTree node.
-     * 
-     * @return The value in this node.
-     */
-    public Object getValue() {
-        return value;
-    }
-    
-    /**
-     * Getter method for left child of this BinaryTree node.
-     * 
-     * @return The left child (<code>null</code> if no left child).
-     */
-    public MyBinaryTree getLeftChild() {
-        return leftChild;
-    }
-    
-    /**
-     * Getter method for right child of this BinaryTree node.
-     * 
-     * @return The right child (<code>null</code> if no right child).
-     */
-    public MyBinaryTree getRightChild() {
-        return rightChild;
-    }
+	    /**
+	     * Constructor for BinaryTree.
+	     * 
+	     * @param value The value to be placed in the root.
+	     * @param leftChild The left child of the root (may be null).
+	     * @param rightChild The right child of the root (may be null).
+	     */
+	    public Node(Object value, Node leftChild, Node rightChild) {
+	        this.value = value;
+	        this.leftChild = leftChild;
+	        this.rightChild = rightChild;
+	    }
 
-    /**
-     * Sets the left child of this BinaryTree node to be the
-     * given subtree. If the node previously had a left child,
-     * it is discarded. Throws an <code>IllegalArgumentException</code>
-     * if the operation would cause a loop in the binary tree.
-     * 
-     * @param subtree The node to be added as the new left child.
-     * @throws IllegalArgumentException If the operation would cause
-     *         a loop in the binary tree.
-     */
-    public void setLeftChild(MyBinaryTree subtree) throws IllegalArgumentException {
-        if (contains(subtree, this)) {
-            throw new IllegalArgumentException(
-                "Subtree " + this +" already contains " + subtree);
-        }
-        leftChild = subtree;
-    }
+	    /**
+	     * Constructor for a BinaryTree leaf node (that is, with no children).
+	     * 
+	     * @param value The value to be placed in the root.
+	     */
+	    public Node(Object value) {
+	        this(value, null, null);
+	    }
 
-    /**
-     * Sets the right child of this BinaryTree node to be the
-     * given subtree. If the node previously had a right child,
-     * it is discarded. Throws an <code>IllegalArgumentException</code>
-     * if the operation would cause a loop in the binary tree.
-     * 
-     * @param subtree The node to be added as the new right child.
-     * @throws IllegalArgumentException If the operation would cause
-     *         a loop in the binary tree.
-     */
-    public void setRightChild(MyBinaryTree subtree) throws IllegalArgumentException {
-        if (contains(subtree, this)) {
-            throw new IllegalArgumentException(
-                    "Subtree " + this +" already contains " + subtree);
-        }
-        rightChild = subtree;
-    }
+	    /**
+	     * Getter method for the value in this BinaryTree node.
+	     * 
+	     * @return The value in this node.
+	     */
+	    public Object getValue() {
+	        return value;
+	    }
+	    
+		/**
+	     * Getter method for left child of this BinaryTree node.
+	     * 
+	     * @return The left child (<code>null</code> if no left child).
+	     */
+	    public Node getLeftChild() {
+	        return leftChild;
+	    }
+	    
+	    /**
+	     * Getter method for right child of this BinaryTree node.
+	     * 
+	     * @return The right child (<code>null</code> if no right child).
+	     */
+	    public Node getRightChild() {
+	        return rightChild;
+	    }
 
-    /**
-     * Sets the value in this BinaryTree node.
-     * 
-     * @param value The new value.
-     */
-    public void setValue(Object value) {
-        this.value = value;
-    }
+	    /**
+	     * Sets the left child of this BinaryTree node to be the
+	     * given subtree. If the node previously had a left child,
+	     * it is discarded. Throws an <code>IllegalArgumentException</code>
+	     * if the operation would cause a loop in the binary tree.
+	     * 
+	     * @param subtree The node to be added as the new left child.
+	     * @throws IllegalArgumentException If the operation would cause
+	     *         a loop in the binary tree.
+	     */
+	    public void setLeftChild(Node subtree) throws IllegalArgumentException {
+	        if (contains(subtree, this)) {
+	            throw new IllegalArgumentException(
+	                "Subtree " + this +" already contains " + subtree);
+	        }
+	        leftChild = subtree;
+	    }
+
+	    /**
+	     * Sets the right child of this BinaryTree node to be the
+	     * given subtree. If the node previously had a right child,
+	     * it is discarded. Throws an <code>IllegalArgumentException</code>
+	     * if the operation would cause a loop in the binary tree.
+	     * 
+	     * @param subtree The node to be added as the new right child.
+	     * @throws IllegalArgumentException If the operation would cause
+	     *         a loop in the binary tree.
+	     */
+	    public void setRightChild(Node subtree) throws IllegalArgumentException {
+	        if (contains(subtree, this)) {
+	            throw new IllegalArgumentException(
+	                    "Subtree " + this +" already contains " + subtree);
+	        }
+	        rightChild = subtree;
+	    }
+
+	    /**
+	     * Sets the value in this BinaryTree node.
+	     * 
+	     * @param value The new value.
+	     */
+	    public void setValue(Object value) {
+	        this.value = value;
+	    }
+
+	}
+
     
     /**
      * Tests whether this node is a leaf node.
@@ -122,7 +142,7 @@ public class MyBinaryTree {
      * @return <code>true</code> if this BinaryTree node has no children.
      */
     public boolean isLeaf() {
-        return leftChild == null && rightChild == null;
+        return root.leftChild == null && root.rightChild == null;
     }
     
     /**
@@ -135,13 +155,13 @@ public class MyBinaryTree {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof MyBinaryTree)) {
+        if (o == null || !(o instanceof Node)) {
             return false;
         }
-        MyBinaryTree otherTree = (MyBinaryTree) o;
-        return equals(value, otherTree.value)
-            && equals(leftChild, otherTree.getLeftChild())
-            && equals(rightChild, otherTree.getRightChild());
+        Node otherTree = (Node) o;
+        return equals(root.value, otherTree.value)
+            && equals(root.leftChild, otherTree.getLeftChild())
+            && equals(root.rightChild, otherTree.getRightChild());
     }
     
     /**
@@ -168,7 +188,7 @@ public class MyBinaryTree {
      * @return <code>true</code> if the <code>targetNode</code> argument can
      *        be found within the binary tree rooted at <code>tree</code>.
      */
-    protected boolean contains(MyBinaryTree tree, MyBinaryTree targetNode) {
+    protected boolean contains(Node tree, Node targetNode) {
         if (tree == null)
             return false;
         if (tree == targetNode)
@@ -178,6 +198,22 @@ public class MyBinaryTree {
     }
     
     /**
+     * 
+     */
+    public boolean areCousins(Node n1, Node n2){
+    	Queue q=new LinkedList();
+    	Node current = root;
+    	q.add(current);
+    	q.add("#");
+    	while(q.size()>0){
+//    		if(q.)
+    	}
+    	
+    	return true;
+    }
+    
+    
+    /**
      * Returns a String representation of this BinaryTree.
      * 
      * @see java.lang.Object#toString()
@@ -185,18 +221,18 @@ public class MyBinaryTree {
      */
     public String toString() {
         if (isLeaf()) {
-            return value.toString();
+            return root.value.toString();
         }
         else {
-            String root, left = "null", right = "null";
-            root = value.toString();
-            if (getLeftChild() != null) {
-                left = getLeftChild().toString();
+            String rootStr, left = "null", right = "null";
+            rootStr = root.value.toString();
+            if (root.getLeftChild() != null) {
+                left = root.getLeftChild().toString();
             }
-            if (getRightChild() != null) {
-                right = getRightChild().toString();
+            if (root.getRightChild() != null) {
+                right = root.getRightChild().toString();
             }
-            return root + " (" + left + ", " + right + ")";
+            return rootStr + " (" + left + ", " + right + ")";
         }
     }
     
@@ -208,12 +244,12 @@ public class MyBinaryTree {
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {
-        int result = value.hashCode();
-        if (leftChild != null) {
-            result += 3 * leftChild.hashCode();
+        int result = root.value.hashCode();
+        if (root.leftChild != null) {
+            result += 3 * root.leftChild.hashCode();
         }
-        if (rightChild != null) {
-            result += 7 * leftChild.hashCode();
+        if (root.rightChild != null) {
+            result += 7 * root.leftChild.hashCode();
         }
         return result;
     }
@@ -222,10 +258,10 @@ public class MyBinaryTree {
      * Prints the binary tree rooted at this BinaryTree node.
      */
     public void print() {
-        print(this, 0);
+        print(this.root, 0);
     }
     
-    private void print(MyBinaryTree root, int indent) {
+    private void print(Node root, int indent) {
         for (int i = 0; i < indent; i++) {
             System.out.print("   ");
         }
@@ -236,13 +272,13 @@ public class MyBinaryTree {
         }
         
         System.out.println(root.value);
-        if (root.isLeaf()) return;
+        if (isLeaf()) return;
         print(root.leftChild, indent + 1);
         print(root.rightChild, indent + 1);
     }
     
-	public void calculateDistance(MyBinaryTree root, int distance, Map<Object, List<Object>> map) {
-		MyBinaryTree current = root;	
+	public void calculateDistance(Node root, int distance, Map<Object, List<Object>> map) {
+		Node current = root;	
 		int currentDistance = distance;
 		List<Object> nodeList = new ArrayList<Object>(); 
 		
@@ -258,17 +294,59 @@ public class MyBinaryTree {
 		}		
 	}
 	
+	public void verticalTraverse(Node root){
+		Map<Integer, List<Integer>> levelMap = new TreeMap<Integer, List<Integer>>();
+		verticalTraverse(root, levelMap, 0);
+		System.out.println("Printing in top view order:");
+		printVerticalOrTopViewOrder(levelMap, true);
+		System.out.println("Printing in vertical order:");
+		printVerticalOrTopViewOrder(levelMap, false);
+	}
+
+	private void printVerticalOrTopViewOrder(
+			Map<Integer, List<Integer>> levelMap, boolean isTopView) {
+		
+		for (Map.Entry<Integer, List<Integer>> entry : levelMap.entrySet()) {
+			Integer key = entry.getKey();
+			List<Integer> values = entry.getValue();
+
+			if(isTopView)
+				System.out.println(key + " => " + values.get(0));
+			else{
+				for (Integer integer : values) {
+					System.out.println(key + " => " + integer);
+				}
+			}
+		}
+	}
+	
+	private void verticalTraverse(Node root, Map<Integer, List<Integer>> levelMap, int level){
+		if(root==null) return;
+		int leftLevel=level-1;
+		int rightLevel=level+1;
+		List<Integer> levelList;
+		if(levelMap.get(level)!=null){
+			levelList=levelMap.get(level);
+		}else{
+			levelList=new ArrayList<Integer>(10);
+		}
+		levelList.add((Integer) root.value);
+		levelMap.put(level, levelList);
+		verticalTraverse(root.leftChild, levelMap, leftLevel);
+		verticalTraverse(root.rightChild, levelMap, rightLevel);
+		
+	}
 	/**
 	 * Symmetric tree is the one which if cut from the middle and folded then will look same.
 	 * @param root
 	 */
-	public boolean isSymmetricTreeNonRecursive(MyBinaryTree root){
+	public boolean isSymmetricTreeNonRecursive(Node root){
 
-		Queue<MyBinaryTree> queueLeft = new LinkedList<MyBinaryTree>();
-		Queue<MyBinaryTree> queueRight = new LinkedList<MyBinaryTree>();
+		Queue<Node> queueLeft = new LinkedList<Node>();
+		Queue<Node> queueRight = new LinkedList<Node>();
 
-		MyBinaryTree left = root.leftChild;
-		MyBinaryTree right = root.rightChild;
+		Node left = root.leftChild;
+		Node right = root.rightChild;
 		
 		queueLeft.add(left);
 		queueRight.add(right);
@@ -285,12 +363,10 @@ public class MyBinaryTree {
 				} else if(left == null &&  right == null) return true; 
 				else return false;
 		}
-		
 		return false;
 	}
 
-	public boolean isSymmetricTreeRecursive(MyBinaryTree left, MyBinaryTree right){
-		
+	public boolean isSymmetricTreeRecursive(Node left, Node right){
 		if(right!=null && left!=null) {
 			if(left.value==right.value 
 					&& isSymmetricTreeRecursive(left.rightChild,right.leftChild) 
@@ -298,34 +374,134 @@ public class MyBinaryTree {
 				return true;
 			} else return false;				
 		} else if (left==null && right == null) return true;
-		else return false;		
+		  else return false;		
 	}
 
-	public boolean isBST(MyBinaryTree root) {
-		MyBinaryTree current = root;
-		
+	public static boolean isBST(Node root) {
+		Node current = root;
 		if(current==null) return true;
-		
 		if(current.leftChild != null && current.rightChild != null) {
 			int center = (Integer) current.value;
 			int left = (Integer) current.leftChild.value;
 			int right = (Integer) current.rightChild.value;
-			
 			if(left < center && center < right && isBST(current.leftChild) && isBST(current.rightChild)) return true;
 			else return false;
 		} else return true;
 	}
+
+	public static boolean isIncorrectBSTImplementation(Node root) {
+		boolean isLeftOk = false;
+		boolean isRightOk = false;
+		
+		if(root == null) return true; //null node should return true since that doesn't need to be checked for < or > values.
+		
+		isLeftOk = isIncorrectBSTImplementation(root.leftChild);
+		isRightOk = isIncorrectBSTImplementation(root.rightChild);
+		
+		if(isLeftOk && isRightOk) return true;
+		return false;
+	}
+	
+	public void printInternalNodes(Node root) {
+		
+	}
+	
 	
     public static void main(String args[]) {
-    	MyBinaryTree tree9 = new MyBinaryTree(9);
-    	MyBinaryTree tree8 = new MyBinaryTree(8);
-    	MyBinaryTree tree7 = new MyBinaryTree(7);
-    	MyBinaryTree tree6 = new MyBinaryTree(6);
-    	MyBinaryTree tree5 = new MyBinaryTree(5);
-    	MyBinaryTree tree4 = new MyBinaryTree(4);
-    	MyBinaryTree tree3 = new MyBinaryTree(3);
-    	MyBinaryTree tree2 = new MyBinaryTree(2);
-    	MyBinaryTree tree1 = new MyBinaryTree(1);
+/*    	MyBinaryTree tree = setTree();
+    	System.out.println(tree.isBST(tree));
+*/    	
+/*    	MyBinaryTree nonBST = new MyBinaryTree(); 
+    	nonBST.setAnotherTree();
+    	System.out.println(isBST(nonBST.root));//fail case: should return false
+    	System.out.println(isIncorrectBSTImplementation(nonBST.root));
+*/    
+    	MyBinaryTree verticalTraverseTree = new MyBinaryTree(); 
+    	verticalTraverseTree=verticalTraverseTree.setTree4VerticalTraverse();
+    	verticalTraverseTree.verticalTraverse(verticalTraverseTree.root);
+    }
+
+    private MyBinaryTree setTree4VerticalTraverse(){    
+    	Node root = new Node(1);
+    	Node node2 = new Node(2);
+    	Node node3 = new Node(3);
+    	Node node4 = new Node(4);
+    	Node node5 = new Node(5);
+    	Node node6 = new Node(6);
+    	Node node7 = new Node(7);
+    	Node node8 = new Node(8);
+    	
+    	root.setLeftChild(node2);
+    	root.setRightChild(node3);
+    	
+    	node2.setLeftChild(node4);
+    	node2.setRightChild(node5);
+    	node3.setLeftChild(node6);
+    	node3.setRightChild(node7);
+    	
+    	node7.setRightChild(node8);
+		return new MyBinaryTree(root);
+    }
+    
+	private MyBinaryTree setAnotherTree() {
+		Node tree7 = new Node(7);
+    	Node tree6 = new Node(6);
+    	Node tree5 = new Node(5);
+    	Node tree4 = new Node(4);
+    	Node tree3 = new Node(3);
+    	Node tree2 = new Node(2);
+    	Node tree1 = new Node(1);
+    	
+    	//create subtree 3
+    	tree3.setLeftChild(tree2);
+    	tree3.setRightChild(tree5);
+    	
+    	//assign subtree3 to left of 4.
+    	tree4.setLeftChild(tree1);
+    	tree4.setRightChild(tree3);
+    	
+    	//set root
+    	tree6.setLeftChild(tree4);
+    	tree6.setRightChild(tree7);
+	
+    	MyBinaryTree tree=new MyBinaryTree(tree6);
+    	return tree;
+	}
+
+	private MyBinaryTree setBST() {
+		Node tree7 = new Node(7);
+    	Node tree6 = new Node(6);
+    	Node tree5 = new Node(5);
+    	Node tree4 = new Node(4);
+    	Node tree3 = new Node(3);
+    	Node tree2 = new Node(2);
+    	Node tree1 = new Node(1);
+    	
+    	//create subtree 3
+    	tree4.setLeftChild(tree2);
+    	tree4.setRightChild(tree5);
+    	
+    	//assign subtree3 to left of 4.
+    	tree3.setLeftChild(tree1);
+    	tree3.setRightChild(tree4);
+    	
+    	tree6.setLeftChild(tree4);
+    	tree6.setRightChild(tree7);
+    	
+    	MyBinaryTree tree=new MyBinaryTree(tree6);
+    	return tree;
+	}
+	
+	private MyBinaryTree setTree() {
+		Node tree9 = new Node(9);
+    	Node tree8 = new Node(8);
+    	Node tree7 = new Node(7);
+    	Node tree6 = new Node(6);
+    	Node tree5 = new Node(5);
+    	Node tree4 = new Node(4);
+    	Node tree3 = new Node(3);
+    	Node tree2 = new Node(2);
+    	Node tree1 = new Node(1);
     	
     	tree6.setRightChild(tree8);
     	tree7.setRightChild(tree9);
@@ -339,56 +515,7 @@ public class MyBinaryTree {
     	tree1.setLeftChild(tree2);
     	tree1.setRightChild(tree3);
     	
-    	tree1.print();
-//    	System.out.println(tree1.contains(tree3, tree3));
-    	
-    	System.out.println(tree1.isBST(tree1));
-//    	Map<Object, List<Object>> map = new TreeMap<Object, List<Object>>();
-//    	tree1.calculateDistance(tree1, 0, map);
-
-//        Iterator<?> it = map.entrySet().iterator();
-//        while (it.hasNext()) {
-//            Map.Entry pair = (Map.Entry)it.next();
-//            System.out.println(pair.getKey() + " = " + pair.getValue());
-//            it.remove(); // avoids a ConcurrentModificationException
-//        }
-    	
-    	
-    	/**
-    	 * This instantiation is for the asymmetric tree test
-    	 */
-//    	MyBinaryTree tree1 = new MyBinaryTree(1);
-//
-//    	MyBinaryTree tree6L = new MyBinaryTree(6);
-//    	MyBinaryTree tree5L = new MyBinaryTree(5);
-//    	MyBinaryTree tree4L = new MyBinaryTree(4);
-//    	MyBinaryTree tree3L = new MyBinaryTree(3);
-//    	MyBinaryTree tree2L = new MyBinaryTree(2);
-//
-//    	tree3L.setLeftChild(tree5L);
-//    	tree3L.setRightChild(tree6L);
-//    	
-//    	tree2L.setLeftChild(tree3L);
-//    	tree2L.setRightChild(tree4L);
-//    	
-//    	tree1.setLeftChild(tree2L);
-//    	
-//    	MyBinaryTree tree6R = new MyBinaryTree(6);
-//    	MyBinaryTree tree5R = new MyBinaryTree(5);
-//    	MyBinaryTree tree4R = new MyBinaryTree(4);
-//    	MyBinaryTree tree3R = new MyBinaryTree(3);
-//    	MyBinaryTree tree2R = new MyBinaryTree(2);    	
-//
-//    	tree3R.setLeftChild(tree6R);
-//    	tree3R.setRightChild(tree5R);
-//    	
-//    	tree2R.setLeftChild(tree4R);
-//    	tree2R.setRightChild(tree3R);
-//    	
-//    	tree1.setRightChild(tree2R);    	
-//    	tree1.print();
-//    	System.out.println(tree1.isSymmetricTreeNonRecursive(tree1));
-//    	System.out.println(tree1.isSymmetricTreeRecursive(tree1.leftChild, tree1.rightChild));
-    	
-    }
+    	MyBinaryTree tree=new MyBinaryTree(tree1);
+    	return tree;
+	}
 }

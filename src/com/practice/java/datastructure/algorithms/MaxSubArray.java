@@ -3,7 +3,7 @@ package com.practice.java.datastructure.algorithms;
 public class MaxSubArray {
 
 	public static void main(String[] args) {
-		
+
 		int[] array = { 1, 2, 3, 4, -9, 6, 7, -8, 1, 9 };
 		System.out.println(findMaxSubArray(array));
 	}
@@ -17,9 +17,9 @@ public class MaxSubArray {
 				end = i;
 			}
 			i++;
+			System.out.println("i :" + i + "savepoint :" + savepoint);
 		}
-//		System.out.println("Max :" + max" + " Start indices : " + savepoint + " end indices : " + end);
 		return max;
 	}
-	
+
 }

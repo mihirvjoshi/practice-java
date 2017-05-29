@@ -17,13 +17,12 @@ public class FindLeadersOfArray {
        previousHighest = a[a.length - 1];       
        System.out.println(previousHighest);
        
-       for(int i=a.length - 2; i > 0; i--) {
-    	   
-    	   if(a[i] > a[i+1] && a[i] > previousHighest) {
-    		   previousHighest = a[i];
-    		   System.out.println(a[i]);
-    	   }
-       }
+		for (int i = a.length - 2; i > 0; i--) {
+			if (a[i] > a[i + 1] && a[i] > previousHighest) {
+				previousHighest = a[i];
+				System.out.println(a[i]);
+			}
+		}
 	}
 
 }

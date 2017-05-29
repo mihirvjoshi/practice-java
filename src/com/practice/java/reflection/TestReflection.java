@@ -15,10 +15,9 @@ public class TestReflection {
 		int a=1;
 		int b=2;
 		
-		if(a==1){
+		if (a == 1) {
 			System.out.println("go to hell");
 			GOTO hell;
-			
 			hell: System.out.println("hell is here");
 		}
 		

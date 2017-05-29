@@ -1,52 +1,45 @@
 package com.practice.java.threads.producerconsumer;
 
 import java.util.Stack;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ProducerConsumerThread {
 
-	private static ExecutorService executor = null;
-
-	static int MAX = 10;
-	static int EMPTY = 0;
+	static final int MAX = 10;
+	static final int EMPTY = 0;
 	static int COUNTER = 0;
-	Stack<String> itemStack = new Stack<String>();
 
 	public static void main(String[] args) {
-
-		executor = Executors.newFixedThreadPool(3);
-		
-		ProducerConsumerThread.Producer producer1  = new ProducerConsumerThread().new Producer();
+		Stack<Integer> itemStack = new Stack<Integer>();
+		ProducerConsumerThread.Producer producer1  = new ProducerConsumerThread().new Producer(itemStack);
 		producer1.start();
-		ProducerConsumerThread.Consumer consumer1 = new ProducerConsumerThread().new Consumer();
+		ProducerConsumerThread.Consumer consumer1 = new ProducerConsumerThread().new Consumer(itemStack);
 		consumer1.start();
-		executor.shutdown();
 	}
 
 	class Producer extends Thread {
-
+		private Stack<Integer> itemStack;
+		public Producer(Stack<Integer> itemStack){
+			this.itemStack=itemStack;
+		}
+		
 		@Override
 		public void run() {
 			while (true) { //this is required for continues consumption. if you remove this then it will only execute once.
-				synchronized (itemStack) {
-					if (itemStack.size() <= MAX) {
-						COUNTER++;
-						itemStack.push(String.valueOf(COUNTER));
-						System.out.println("producing item ->" + COUNTER
-								+ " & size of stack is now :: "
-								+ itemStack.size());
-						itemStack.notifyAll();
-					}
-
-					while (itemStack.size() == MAX) {
+				synchronized (this.itemStack) {
+//					System.out.println("itemStack in producer"+itemStack.getClass().hashCode());
+					while (this.itemStack.size() == MAX) {
 						try {
-							System.out
-									.println("Stack is full & Producer is waiting.");
-							itemStack.wait();
+							System.out.println("Stack is full & Producer is waiting.");
+							this.itemStack.wait();
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					}
+					if (this.itemStack.size() < MAX) {
+						COUNTER++;
+						this.itemStack.push(COUNTER);
+						System.out.println("producing item ->" + COUNTER + " & size of stack is now :: " + this.itemStack.size());
+						this.itemStack.notifyAll();
 					}
 				}
 			}
@@ -54,34 +47,37 @@ public class ProducerConsumerThread {
 	}
 
 	private class Consumer extends Thread {
+		private Stack<Integer> itemStack;
+		public Consumer(Stack<Integer> itemStack){
+			this.itemStack=itemStack;
+		}
 
 		@Override
 		public void run() {
-			while (true) { //this is required for continues consumption. if you remove this then it will only execute once.
-				synchronized (itemStack) {
-					if (itemStack.size() != EMPTY) {
-						System.out.println("Consuming item ->"
-								+ itemStack.pop()
-								+ " & size of stack is now :: "
-								+ itemStack.size());
-						itemStack.notifyAll();
-					}
-
-					while (itemStack.size() == EMPTY) {
-						System.out
-								.println("Stack is empty & Consumer is waiting.");
-						
+			while (true) { // this is required for continues consumption. if you
+							// remove this then it will only execute once.
+			// System.out.println("itemStack in consumer"+itemStack.getClass().hashCode());
+				synchronized (this.itemStack) {
+					System.out.println(this.itemStack.size());
+					while (this.itemStack.size() == EMPTY) {
+						System.out.println("Stack is empty & Consumer is waiting.");
 						COUNTER = 0;
 						try {
-							itemStack.wait();
+							this.itemStack.wait();
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+					}
+					if (this.itemStack.size() > EMPTY) {
+						COUNTER--;
+						System.out.println("Consuming item ->" + this.itemStack.pop()
+								+ " & size of stack is now :: " + this.itemStack.size());
+						this.itemStack.notifyAll();
 					}
 				}
 			}
 		}
 	}
-
 }
+
+

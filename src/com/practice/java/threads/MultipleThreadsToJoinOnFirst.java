@@ -33,16 +33,11 @@ public class MultipleThreadsToJoinOnFirst extends Thread {
 	 */
 	public static void main(String[] args) {
 
-		MultipleThreadsToJoinOnFirst t1 = new MultipleThreadsToJoinOnFirst(
-				"one");
-		MultipleThreadsToJoinOnFirst t2 = new MultipleThreadsToJoinOnFirst(
-				"two");
-		MultipleThreadsToJoinOnFirst t3 = new MultipleThreadsToJoinOnFirst(
-				"three");
-		MultipleThreadsToJoinOnFirst t4 = new MultipleThreadsToJoinOnFirst(
-				"four");
-		MultipleThreadsToJoinOnFirst t5 = new MultipleThreadsToJoinOnFirst(
-				"five");
+		MultipleThreadsToJoinOnFirst t1 = new MultipleThreadsToJoinOnFirst("one");
+		MultipleThreadsToJoinOnFirst t2 = new MultipleThreadsToJoinOnFirst("two");
+		MultipleThreadsToJoinOnFirst t3 = new MultipleThreadsToJoinOnFirst("three");
+		MultipleThreadsToJoinOnFirst t4 = new MultipleThreadsToJoinOnFirst("four");
+		MultipleThreadsToJoinOnFirst t5 = new MultipleThreadsToJoinOnFirst("five");
 
 		ExecutorService service = Executors.newFixedThreadPool(5);
 		service.submit(t1);

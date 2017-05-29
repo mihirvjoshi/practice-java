@@ -25,10 +25,10 @@ public class CountDownLatchDemo {
        
         //count is 3 since we have 3 Threads (Services)
        
-        try{
-             latch.await();  //main thread is waiting on CountDownLatch to finish
-             System.out.println("All services are up, Application is starting now");
-        }catch(InterruptedException ie){
+		try {
+			latch.await(); // main thread is waiting on CountDownLatch to finish
+			System.out.println("All services are up, Application is starting now");
+		}catch(InterruptedException ie){
             ie.printStackTrace();
         }
      }
@@ -57,9 +57,7 @@ public class CountDownLatchDemo {
             }
             System.out.println( name + " is Up");
             latch.countDown(); //reduce count of CountDownLatch by 1
-        }
-      
-    }
-       
+        }      
+    }       
 }
 

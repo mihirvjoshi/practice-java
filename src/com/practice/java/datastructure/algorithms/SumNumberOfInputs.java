@@ -21,7 +21,13 @@ public class SumNumberOfInputs {
 	        int a = Integer.parseInt(line1.split(" ")[0].trim());        
 	        int b = Integer.parseInt(line1.split(" ")[1].trim());
 	        
-	        System.out.println(a+b);
+/*	        for(int number = 2; number<=limit; number++){
+	            //print prime numbers only
+	            if(isPrime(number)){
+	                System.out.println(number);
+	            }
+	        }	        
+*/	        System.out.println(a+b);
 	    }        
     }
 }

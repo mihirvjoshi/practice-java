@@ -7,14 +7,15 @@ public class FindDuplicateNumber {
 	int[] numbers = new int[100];     //this array is having duplicate numbers.
 	int[] copyNumbers = new int[100]; // this array is having no from 1 to 100
 	
-	for (int i = 0; i < 100; i++) {
-	    if (i == 48 || i == 49) // add duplicate value for element no 48 and 49
-		numbers[i] = 49;
-	    else {
-		numbers[i] = i + 1;
-	    }
-	    copyNumbers[i] = i + 1;
-	}
+		for (int i = 0; i < 100; i++) {
+			if (i == 48 || i == 49) // add duplicate value for element no 48 and
+									// 49
+				numbers[i] = 49;
+			else {
+				numbers[i] = i + 1;
+			}
+			copyNumbers[i] = i + 1;
+		}
 
 	int sum = 0;
 

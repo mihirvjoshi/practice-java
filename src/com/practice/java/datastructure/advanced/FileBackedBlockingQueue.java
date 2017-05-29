@@ -59,11 +59,9 @@ public class FileBackedBlockingQueue extends MyQueue implements IBlockingQueue, 
 		try {
 			while(this.SIZE == 0) {
 				hasSpace.await();
-			}
-			
+			}			
 			popedObject = pop();
-			c = count.decrementAndGet();
-			
+			c = count.decrementAndGet();			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

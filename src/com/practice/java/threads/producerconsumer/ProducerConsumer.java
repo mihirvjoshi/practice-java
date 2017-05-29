@@ -28,7 +28,7 @@ public class ProducerConsumer {
 	    // see if the list is full, !!DANGER!! this should be a while loop
 	    if (items.size() >= CAPACITY) {
 		try {
-		    // wait for the list to have space
+		    // wait for the list to have space and so hasSpace wants to wait.
 		    hasSpace.await();
 		} catch (InterruptedException e) {
 		    e.printStackTrace();
@@ -50,62 +50,62 @@ public class ProducerConsumer {
 
     
     // consumer method
-    public String get() {
-	lock.lock();
-	try {
-	    // see if the list is empty, !!DANGER!! should be a while loop
-	    if (items.isEmpty()) {
+	public String get() {
+		lock.lock();
 		try {
-		    // wait for the list to have items
-		    hasItems.await();
-		} catch (InterruptedException e) {
-		    e.printStackTrace();
-		    return null;
+			// see if the list is empty, !!DANGER!! should be a while loop
+			if (items.isEmpty()) {
+				try {
+					// wait for the list to have items
+					hasItems.await();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+			String item = null;
+			try {
+				// remove the item from the front of the list
+				item = items.remove(0);
+				// signal a waiting producer (if any) that the list has space
+				hasSpace.signal();
+			} catch (IndexOutOfBoundsException e) {
+				System.err.println("Under capacity: " + items.size());
+			}
+			return item;
+		} finally {
+			System.out.println("Finally releasing consumer");
+			lock.unlock();
 		}
-	    }
-	    String item = null;
-	    try {
-		// remove the item from the front of the list
-		item = items.remove(0);
-		// signal a waiting producer (if any) that the list has space
-		hasSpace.signal();
-	    } catch (IndexOutOfBoundsException e) {
-		System.err.println("Under capacity: " + items.size());
-	    }
-	    return item;
-	} finally {
-	    System.out.println("Finally releasing consumer");
-	    lock.unlock();
 	}
-    }
 
-    public static void main(String[] args) {
-	new ProducerConsumer().doMain(args);
-    }
+	public static void main(String[] args) {
+		new ProducerConsumer().doMain(args);
+	}
 
-    private void doMain(String[] args) {
-	for (int i = 0; i < NUM_GETTERS; i++) {
-	    new Thread(new Getter()).start();
+	private void doMain(String[] args) {
+		for (int i = 0; i < NUM_GETTERS; i++) {
+			new Thread(new Getter()).start();
+		}
+		for (int i = 0; i < NUM_PUTTERS; i++) {
+			new Thread(new Putter()).start();
+		}
+		new Putter();
 	}
-	for (int i = 0; i < NUM_PUTTERS; i++) {
-	    new Thread(new Putter()).start();
-	}
-	new Putter();
-    }
 
     private class Getter implements Runnable {
-	public void run() {
-	    while (true) {
-		get();
-	    }
-	}
+		public void run() {
+			while (true) {
+				get();
+			}
+		}
     }
 
-    private class Putter implements Runnable {
-	public void run() {
-	    while (true) {
-		put("foo");
-	    }
+	private class Putter implements Runnable {
+		public void run() {
+			while (true) {
+				put("foo");
+			}
+		}
 	}
-    }
 }

@@ -29,8 +29,7 @@ public class MyBinarySearch {
     static int[] array = new int[ARRAY_SIZE];
     static int target;
 
-	public boolean search(int[] array, int value){
-		
+	public boolean search(int[] array, int value){		
 		int mid = array.length/2;
 //		System.out.println(array[mid]);
 		if(value < array[mid]){

@@ -68,5 +68,4 @@ public class MyQueue implements IQueue{
 	public int size() {
 		return this.SIZE;
 	}
-
 }
