@@ -8,18 +8,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
  
 public class FailOrThreadSafeIteratorExample {
  
-    public static void main(String[] args) {
- 
-        List<String> myList = new CopyOnWriteArrayList<String>();
- 
+    public static void main(String[] args) { 
+        List<String> myList = new CopyOnWriteArrayList<String>(); 
         myList.add("1");
         myList.add("2");
         myList.add("3");
         myList.add("4");
         myList.add("5");
  
-        Iterator<String> it = myList.iterator();
-        
+        Iterator<String> it = myList.iterator();        
         while(it.hasNext()){
             String value = it.next();
             System.out.println("List Value:"+value);

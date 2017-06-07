@@ -1,13 +1,12 @@
 package com.practice.java.threads.concurrent;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CountDownLatchDemo {
 
     public static void main(String args[]) {
-        final CountDownLatch latch = new CountDownLatch(3);
+        final MyCountDownLatch latch = new MyCountDownLatch(3);
         Thread cacheService = new Thread(new Service("CacheService", 1000, latch));
         Thread alertService = new Thread(new Service("AlertService", 1000, latch));
         Thread validationService = new Thread(new Service("ValidationService", 1000, latch));
@@ -40,9 +39,9 @@ public class CountDownLatchDemo {
     static class Service implements Runnable{
         private final String name;
         private final int timeToStart;
-        private final CountDownLatch latch;
+        private final MyCountDownLatch latch;
       
-        public Service(String name, int timeToStart, CountDownLatch latch){
+        public Service(String name, int timeToStart, MyCountDownLatch latch){
             this.name = name;
             this.timeToStart = timeToStart;
             this.latch = latch;
@@ -57,9 +56,7 @@ public class CountDownLatchDemo {
             }
             System.out.println( name + " is Up");
             latch.countDown(); //reduce count of CountDownLatch by 1
-        }
-      
-    }
-       
+        }      
+    }       
 }
 
