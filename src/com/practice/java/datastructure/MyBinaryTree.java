@@ -17,7 +17,7 @@ public class MyBinaryTree {
      * The value (data) in this node of the binary tree; may be of
      * any object type.
      */
-    public Object value;
+    public int value;
     private MyBinaryTree leftChild;
     private MyBinaryTree rightChild;
 
@@ -28,7 +28,7 @@ public class MyBinaryTree {
      * @param leftChild The left child of the root (may be null).
      * @param rightChild The right child of the root (may be null).
      */
-    public MyBinaryTree(Object value, MyBinaryTree leftChild, MyBinaryTree rightChild) {
+    public MyBinaryTree(int value, MyBinaryTree leftChild, MyBinaryTree rightChild) {
         this.value = value;
         this.leftChild = leftChild;
         this.rightChild = rightChild;
@@ -39,7 +39,7 @@ public class MyBinaryTree {
      * 
      * @param value The value to be placed in the root.
      */
-    public MyBinaryTree(Object value) {
+    public MyBinaryTree(int value) {
         this(value, null, null);
     }
 
@@ -49,7 +49,7 @@ public class MyBinaryTree {
      * 
      * @return The value in this node.
      */
-    public Object getValue() {
+    public int getValue() {
         return value;
     }
     
@@ -112,7 +112,7 @@ public class MyBinaryTree {
      * 
      * @param value The new value.
      */
-    public void setValue(Object value) {
+    public void setValue(int value) {
         this.value = value;
     }
     
@@ -185,11 +185,11 @@ public class MyBinaryTree {
      */
     public String toString() {
         if (isLeaf()) {
-            return value.toString();
+            return String.valueOf(value);
         }
         else {
             String root, left = "null", right = "null";
-            root = value.toString();
+            root = String.valueOf(value);
             if (getLeftChild() != null) {
                 left = getLeftChild().toString();
             }
@@ -208,7 +208,7 @@ public class MyBinaryTree {
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {
-        int result = value.hashCode();
+        int result = value;
         if (leftChild != null) {
             result += 3 * leftChild.hashCode();
         }
@@ -316,6 +316,35 @@ public class MyBinaryTree {
 		} else return true;
 	}
 	
+	public int[] findSecondHighestNode(MyBinaryTree tree, int[] pair){
+//		int[] pair=new int[2];
+		if(tree==null) return new int[2];
+		else{
+			int root=0, left=0, right=0, max=0;
+			int[] leftpair=findSecondHighestNode(tree.leftChild, pair);
+			int[] rightpair=findSecondHighestNode(tree.rightChild, pair);			
+			root=tree.value;
+			if(tree.leftChild!=null){
+				left=tree.leftChild.value;
+			}
+			if(tree.rightChild!=null){
+				right=tree.rightChild.value;
+			}
+			max=Math.max(left, root);
+		}
+		return pair;
+	}
+	
+	private void compareAndSwap(int a, int b, int[] pair){
+		if(a>b){
+			pair[0]=b;//second highest.
+			pair[1]=a;
+		} else{
+			pair[0]=a;//second highest.
+			pair[1]=b;
+		}
+	}
+	
     public static void main(String args[]) {
     	MyBinaryTree tree9 = new MyBinaryTree(9);
     	MyBinaryTree tree8 = new MyBinaryTree(8);
@@ -340,6 +369,8 @@ public class MyBinaryTree {
     	tree1.setRightChild(tree3);
     	
     	tree1.print();
+    	int[] pair=tree1.findSecondHighestNode(tree1, new int[2]);
+    	System.out.println(pair[0]+"====>"+pair[1]);
 //    	System.out.println(tree1.contains(tree3, tree3));
     	
     	System.out.println(tree1.isBST(tree1));
@@ -388,7 +419,6 @@ public class MyBinaryTree {
 //    	tree1.setRightChild(tree2R);    	
 //    	tree1.print();
 //    	System.out.println(tree1.isSymmetricTreeNonRecursive(tree1));
-//    	System.out.println(tree1.isSymmetricTreeRecursive(tree1.leftChild, tree1.rightChild));
-    	
+//    	System.out.println(tree1.isSymmetricTreeRecursive(tree1.leftChild, tree1.rightChild));    	
     }
 }

@@ -136,28 +136,74 @@ public class MyBinarySearchTree {
 	
 	public Node convertToMirrorTree(Node data) {
 		Node mirrorTree = data;
-		System.out.println(data.data);
-		
 		if(data != null) {
 			Node temp = new Node(data.data);
 			temp.left = convertToMirrorTree(data.right);
 			temp.right = convertToMirrorTree(data.left);
 			mirrorTree =  temp;
-		}
-		
+		}		
 		return mirrorTree;		
 	}
 	
-	
+	public MyLinkedList convertTreeToList(Node root){
+		MyLinkedList head=null;
+		MyLinkedList left = null;
+		MyLinkedList right = null;
+		if(root==null) return null;
+		else{
+			left=convertTreeToList(root.left);
+			MyLinkedList center=new MyLinkedList(new MyLinkedList().new Node(root.data));
+			right=convertTreeToList(root.right);			
+			if(left!=null){
+				head=left;
+				head.add(center.first);
+			} else {
+				head=center;
+			}
+			if(center!=null && right!=null)
+				head.add(right.first);
+		}
+		return head;
+	}
+
 	public MyBinarySearchTree convertsortedArrayToBST(int[] array, int start, int end){
-		
 		MyBinarySearchTree bst = new MyBinarySearchTree(array[0]);
-		
-		
-		
 		return null;		
 	}
 	
+	public void boundaryTraversal(Node root){
+		if(root==null) return;
+		System.out.print(root.data + " ");
+		printLeftSubTree(root.left, false);
+		printRightSubTree(root.right, false);
+	}
+	
+	private void printLeftSubTree(Node root, boolean isRight){
+		if(root==null) return;
+		if(!isRight){
+			System.out.print(root.data+" ");	
+		}
+		printLeftSubTree(root.left, false);		
+		if(isRight && root.right==null && root.left==null){
+			System.out.print(root.data + " ");
+		} else {
+			printLeftSubTree(root.right, true);
+		}
+	}
+	
+	private void printRightSubTree(Node root, boolean isLeft){
+		if(root==null) return;	
+		if(isLeft&& root.left==null && root.right==null){
+			System.out.print(root.data + " ");
+		} else {
+			printRightSubTree(root.left, true);					
+		}
+		if(!isLeft){
+			printRightSubTree(root.right, false);		
+			System.out.print(root.data + " ");
+		}
+	}
+
 	class Node {
 		int data;
 		private Node left;
@@ -191,24 +237,31 @@ public class MyBinarySearchTree {
 //		tree.breadFirstTraverse(tree.root);
 
 		//======================= Testing for printing two BST alternately =======================
-		MyBinarySearchTree tree1 = new MyBinarySearchTree(6);
+/*		MyBinarySearchTree tree1 = new MyBinarySearchTree(6);
 		tree1.insertNode(4);
 		tree1.insertNode(10);
 		tree1.insertNode(5);
 		tree1.insertNode(3);
 		tree1.insertNode(2);
 		tree1.insertNode(7);
-
-		MyBinarySearchTree tree2 = new MyBinarySearchTree(60);
-		tree2.insertNode(40);
-		tree2.insertNode(100);
-		tree2.insertNode(50);
-		tree2.insertNode(30);
+		System.out.println("=====================================");
+		tree1.boundaryTraversal(tree1.root);
+		System.out.println();
+		System.out.println("=====================================");
+*/		MyBinarySearchTree tree2 = new MyBinarySearchTree(30);
 		tree2.insertNode(20);
-		tree2.insertNode(70);
-		
-		tree1.inorderTraverseTwoTrees(tree1.root, tree2.root);
+		tree2.insertNode(40);
+		tree2.insertNode(10);
+		tree2.insertNode(25);
+		tree2.insertNode(5);
+		tree2.insertNode(15);
+		tree2.insertNode(28);
+		tree2.insertNode(35);
+		tree2.insertNode(50);
+		tree2.insertNode(41);
+//		tree2.inorderTraverse(tree2.root);
+		tree2.boundaryTraversal(tree2.root);	
+//		tree1.inorderTraverseTwoTrees(tree1.root, tree2.root);
 		//==================================================================================================
-
 	}
 }

@@ -38,7 +38,7 @@ public class MyLinkedList {
 		}
 	}
 
-	private class Node {
+	class Node {
 		Object data;
 		Node next;
 		Node(Object data) {
@@ -54,16 +54,7 @@ public class MyLinkedList {
 	public Node reverse(Node node) {
 		Node previous = null, newFirst = null, temp = null;
 		Node current = node;
-		// newFirst = current;
-		// current = current.next;
-		// newFirst.next = null;
-
 		while (current != null) {
-			// previous = newFirst;
-			// temp = current;
-			// current = current.next;
-			// temp.next = previous;
-			// newFirst = temp;
 			previous = current;
 			// #1. this step is important in the sequence here because
 			// current(memory address) is still being referred by previous in

@@ -10,7 +10,6 @@ public class CyclicBarrierDemoForVIPDarshan {
         // In general terms, no.of queues to wait
         // here 2
         CyclicBarrier cb=new CyclicBarrier(2,new GoVIP());
-            
         // Create two threads,
         // a 50/- line and a 100/- line
         new FiftyClass(cb);
