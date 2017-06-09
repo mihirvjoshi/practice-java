@@ -13,7 +13,6 @@ public class SetComparision {
 				for (int j = 0; j < setB.length; j++) {
 //					System.out.println("A is " + setA[i]);
 //					System.out.println("B is " + setB[j]);
-
 					if (setA[i] < setB[j]) {
 						setC[i] = setA[i];
 						System.out.println(setC[i]);

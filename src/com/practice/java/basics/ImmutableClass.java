@@ -6,18 +6,14 @@ package com.practice.java.basics;
  * @author N557050
  *
  */
-public class ImmutableClass {
-    
-    private String dontTryToChangeMe = null; 
-    
-    public ImmutableClass(String initializingTheClass){
-	dontTryToChangeMe = initializingTheClass;
-    }
-    
-    //public void setDontTryToChangeMe(); this is illegal to have setter in immutable classes.
-    
-    public String getButDontTryToChangeMe(){
-	return this.dontTryToChangeMe;
-    }
-
+public final class ImmutableClass {    
+    private String dontTryToChangeMe = null;    
+	public ImmutableClass(String initializingTheClass) {
+		dontTryToChangeMe = initializingTheClass;
+	}    
+	
+    //public void setDontTryToChangeMe(); this is illegal to have setter in immutable classes.    
+	public final String getButDontTryToChangeMe() {
+		return this.dontTryToChangeMe;
+	}
 }
