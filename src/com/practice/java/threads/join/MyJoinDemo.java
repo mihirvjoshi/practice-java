@@ -1,10 +1,8 @@
-package com.practice.java.threads.synchronization;
+package com.practice.java.threads.join;
 
-public class MyJoinDemo {
-	
+public class MyJoinDemo {	
 	private class MyServiceThread implements Runnable {
-		String name;
-		
+		String name;		
 		MyServiceThread(String name){
 			this.name=name;
 		}
@@ -15,9 +13,9 @@ public class MyJoinDemo {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("Finished  " + this.name);
 		}		
 	}
 	
@@ -26,13 +24,15 @@ public class MyJoinDemo {
 		Thread t2 = new Thread(new MyJoinDemo().new MyServiceThread("Thread 2"));
 		Thread t3 = new Thread(new MyJoinDemo().new MyServiceThread("Thread 3"));
 		
-		t1.start();
 		try {
 			t1.join();
+			t2.join();
+			t3.join();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		t1.start();
 		t2.start();
 		t3.start();
 	}
