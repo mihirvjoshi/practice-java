@@ -1,7 +1,9 @@
 package com.practice.java.threads.locks;
 
+import com.practice.java.threads.core.MyReentrantLock;
+
 public class MySharedResource {
-	ReentrantLock resouceLock = new ReentrantLock();
+	MyReentrantLock resouceLock = new MyReentrantLock();
 	
 	public void sharedMethod(){
 		try {

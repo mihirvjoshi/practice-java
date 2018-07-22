@@ -3,7 +3,7 @@ package com.practice.java.basics;
 import java.util.HashSet;
 import java.util.Set;
 
-	class EqualsAndHashCode {
+	class EqualsAndHashCode implements Comparable<String>{
 		private final String first, last;
 
 		public EqualsAndHashCode(String first, String last) {
@@ -32,6 +32,11 @@ import java.util.Set;
 		
 		// this will return true even without overriding equals method.
 		System.out.println(s.contains(objectWithoutEqualsAndHashcode)); 
+	}
+
+	@Override
+	public int compareTo(String o) {
+		return 0;
 	}
 
 }

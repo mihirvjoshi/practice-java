@@ -1,9 +1,9 @@
-package com.practice.java.threads.concurrent;
+package com.practice.java.threads.core;
 
 public class MyCountDownLatch {
 	private int count;
 	
-	MyCountDownLatch(int count){
+	public MyCountDownLatch(int count){
 		this.count=count;
 	}
 	

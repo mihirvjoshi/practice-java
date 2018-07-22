@@ -1,10 +1,12 @@
 package com.practice.java.datastructure;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * A BinaryTree consists of "nodes"--each "node" is itself a BinaryTree.
@@ -316,6 +318,40 @@ public class MyBinaryTree {
 		} else return true;
 	}
 	
+	int sum(MyBinaryTree node) {
+		if (node == null)
+			return 0;
+		return sum(node.leftChild) + node.value + sum(node.rightChild);
+	}
+
+	/*
+	 * returns 1 if sum property holds for the given node and both of its
+	 * children
+	 */
+	int isSumTree(MyBinaryTree node) {
+		int ls, rs;
+		/*
+		 * If node is NULL or it's a leaf node then return true
+		 */
+		if ((node == null)
+				|| (node.leftChild == null && node.rightChild == null))
+			return 1;
+
+		/* Get sum of nodes in left and right subtrees */
+		ls = sum(node.leftChild);
+		rs = sum(node.rightChild);
+
+		/*
+		 * if the node and both of its children satisfy the property return 1
+		 * else 0
+		 */
+		if ((node.value == ls + rs) && (isSumTree(node.leftChild) != 0)
+				&& (isSumTree(node.rightChild)) != 0)
+			return 1;
+
+		return 0;
+	}
+
 	public int[] findSecondHighestNode(MyBinaryTree tree, int[] pair){
 //		int[] pair=new int[2];
 		if(tree==null) return new int[2];
@@ -345,8 +381,41 @@ public class MyBinaryTree {
 		}
 	}
 	
+	/**
+	 * This method finds the common path between two given nodes from the root. In case of no common path
+	 * it should print "No common Path".
+	 * @param root
+	 * @param node1
+	 * @param node2
+	 */
+	public void findCommonPathFromRoot(MyBinaryTree root, MyBinaryTree node1, MyBinaryTree node2){
+		if(root==null || node1==null || node2==null) System.out.println("No Common Path");
+		Set set1=new HashSet(), set2=new HashSet();
+		findNode(root, node1, set1);
+		findNode(root, node2, set2);
+		
+		set1.retainAll(set2);
+		
+		System.out.println(set1.toString());
+	}
+	
+	private boolean findNode(MyBinaryTree root, MyBinaryTree node, Set mySet ){
+		if(root==null) return false;
+		if(root.value==node.value){
+			return true;
+		}
+		boolean isFoundInLeft=findNode(root.leftChild, node, mySet);
+		boolean isFoundInRight=findNode(root.rightChild, node, mySet);		
+
+		if(isFoundInLeft || isFoundInRight){
+			mySet.add(root.value);
+			return true;
+		}
+		return false;
+	}
+	
     public static void main(String args[]) {
-    	MyBinaryTree tree9 = new MyBinaryTree(9);
+/*    	MyBinaryTree tree9 = new MyBinaryTree(9);
     	MyBinaryTree tree8 = new MyBinaryTree(8);
     	MyBinaryTree tree7 = new MyBinaryTree(7);
     	MyBinaryTree tree6 = new MyBinaryTree(6);
@@ -368,57 +437,28 @@ public class MyBinaryTree {
     	tree1.setLeftChild(tree2);
     	tree1.setRightChild(tree3);
     	
-    	tree1.print();
-    	int[] pair=tree1.findSecondHighestNode(tree1, new int[2]);
-    	System.out.println(pair[0]+"====>"+pair[1]);
-//    	System.out.println(tree1.contains(tree3, tree3));
+    	tree1.findCommonPathFromRoot(tree1, tree8, tree9);
+*/       	
+    	MyBinaryTree root = new MyBinaryTree(26);
+    	MyBinaryTree tree10 = new MyBinaryTree(10);
+    	MyBinaryTree tree6 = new MyBinaryTree(6);
+    	MyBinaryTree tree4 = new MyBinaryTree(4);
+//    	MyBinaryTree tree2 = new MyBinaryTree(2);
+//    	MyBinaryTree tree21 = new MyBinaryTree(2);
+    	MyBinaryTree tree3 = new MyBinaryTree(3);
+    	MyBinaryTree tree31 = new MyBinaryTree(3);
     	
-    	System.out.println(tree1.isBST(tree1));
-//    	Map<Object, List<Object>> map = new TreeMap<Object, List<Object>>();
-//    	tree1.calculateDistance(tree1, 0, map);
-
-//        Iterator<?> it = map.entrySet().iterator();
-//        while (it.hasNext()) {
-//            Map.Entry pair = (Map.Entry)it.next();
-//            System.out.println(pair.getKey() + " = " + pair.getValue());
-//            it.remove(); // avoids a ConcurrentModificationException
-//        }
+    	root.setLeftChild(tree10);
+    	root.setRightChild(tree3);
     	
+    	tree3.setRightChild(tree31);
     	
-    	/**
-    	 * This instantiation is for the asymmetric tree test
-    	 */
-//    	MyBinaryTree tree1 = new MyBinaryTree(1);
-//
-//    	MyBinaryTree tree6L = new MyBinaryTree(6);
-//    	MyBinaryTree tree5L = new MyBinaryTree(5);
-//    	MyBinaryTree tree4L = new MyBinaryTree(4);
-//    	MyBinaryTree tree3L = new MyBinaryTree(3);
-//    	MyBinaryTree tree2L = new MyBinaryTree(2);
-//
-//    	tree3L.setLeftChild(tree5L);
-//    	tree3L.setRightChild(tree6L);
-//    	
-//    	tree2L.setLeftChild(tree3L);
-//    	tree2L.setRightChild(tree4L);
-//    	
-//    	tree1.setLeftChild(tree2L);
-//    	
-//    	MyBinaryTree tree6R = new MyBinaryTree(6);
-//    	MyBinaryTree tree5R = new MyBinaryTree(5);
-//    	MyBinaryTree tree4R = new MyBinaryTree(4);
-//    	MyBinaryTree tree3R = new MyBinaryTree(3);
-//    	MyBinaryTree tree2R = new MyBinaryTree(2);    	
-//
-//    	tree3R.setLeftChild(tree6R);
-//    	tree3R.setRightChild(tree5R);
-//    	
-//    	tree2R.setLeftChild(tree4R);
-//    	tree2R.setRightChild(tree3R);
-//    	
-//    	tree1.setRightChild(tree2R);    	
-//    	tree1.print();
-//    	System.out.println(tree1.isSymmetricTreeNonRecursive(tree1));
-//    	System.out.println(tree1.isSymmetricTreeRecursive(tree1.leftChild, tree1.rightChild));    	
+    	tree10.setLeftChild(tree6);
+    	tree10.setRightChild(tree4);
+    	
+//    	tree4.setLeftChild(tree2);
+//    	tree4.setRightChild(tree21);
+    	System.out.println(root.toString());
+    	System.out.println(root.isSumTree(root));
     }
 }

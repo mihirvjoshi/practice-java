@@ -10,11 +10,13 @@ public class CompareLists {
 	static List<String> list2 = new ArrayList<String>();
 	static List<Object> list3 = new ArrayList<Object>();
 	
+	
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+		String[] exps = "hello, hi".split(",");
 		for(int i=0; i < 20; i++){
 			String temp = "String" + i;
 			list1.add(temp);

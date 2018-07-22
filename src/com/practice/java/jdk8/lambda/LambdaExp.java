@@ -1,4 +1,4 @@
-package com.practice.java.lambda;
+package com.practice.java.jdk8.lambda;
 
 public class LambdaExp {
 	interface Calculate{

@@ -25,16 +25,4 @@ public class Dollar10Dispenser implements DispenseChain {
             this.chain.dispense(cur);
         }
     }
- 
-    private boolean temp(Hashtable<?, ?> hash){
-    	if(true){
-    		System.out.println("Hello");
-    	} else {
-    		return false;
-    	}
-    	 
-		return false;
-    	
-    }
-    
 }

@@ -1,20 +1,20 @@
 package com.practice.java.threads.concurrent;
 
 import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.practice.java.threads.core.MyCyclicBarrier;
+
 /**
  * Java program to demonstrate how to use CyclicBarrier in Java. CyclicBarrier is a
- * new Concurrency Utility added in Java 5 Concurrent package.
+ * new Concurrency Utility added in Java 5 Concurrent package. It gerentees the sequential order of the
+ * threads.
  *
  * @author Mihir Joshi
  */
 public class CyclicBarrierExample {
-
-    private static class BarrierTask implements Runnable {
-    	
+    private static class BarrierTask implements Runnable {    	
 		@Override
 		public void run(){
 		    //This task will be executed once all thread reaches barrier
@@ -24,11 +24,10 @@ public class CyclicBarrierExample {
 
 	//Runnable task for each thread
     private static class Task implements Runnable {
-
-        private CyclicBarrier barrier;
+        private MyCyclicBarrier barrier;
     	int counter = 0;
 
-        public Task(CyclicBarrier barrier) {
+        public Task(MyCyclicBarrier barrier) {
             this.barrier = barrier;
         }
 
@@ -48,11 +47,10 @@ public class CyclicBarrierExample {
     }
 
     public static void main(String args[]) {
-
         //creating CyclicBarrier with 3 parties i.e. 3 Threads needs to call await()
     	//BarrierTask is the one which needs to finish first here and so will be the barrier thread
     	//for rest of 3 threads
-    	final CyclicBarrier cb = new CyclicBarrier(3, new BarrierTask());
+    	final MyCyclicBarrier cb = new MyCyclicBarrier(3, new BarrierTask());
         //starting each of thread
         Thread t1 = new Thread(new CyclicBarrierExample.Task(cb), "Thread 1");
         Thread t2 = new Thread(new CyclicBarrierExample.Task(cb), "Thread 2");

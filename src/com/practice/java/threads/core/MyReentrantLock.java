@@ -1,6 +1,6 @@
-package com.practice.java.threads.locks;
+package com.practice.java.threads.core;
 
-public class ReentrantLock {
+public class MyReentrantLock {
 	boolean isLocked=false;
 	Thread lockingThread;
 	int locked;

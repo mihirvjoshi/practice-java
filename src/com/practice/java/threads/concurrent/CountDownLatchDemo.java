@@ -3,6 +3,8 @@ package com.practice.java.threads.concurrent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.practice.java.threads.core.MyCountDownLatch;
+
 public class CountDownLatchDemo {
 
     public static void main(String args[]) {

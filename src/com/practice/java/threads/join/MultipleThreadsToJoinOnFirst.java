@@ -1,4 +1,4 @@
-package com.practice.java.threads;
+package com.practice.java.threads.join;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

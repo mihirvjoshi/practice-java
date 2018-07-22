@@ -2,6 +2,12 @@ package com.practice.java.threads.concurrent;
 
 import java.util.concurrent.CyclicBarrier;
 
+/**
+ * Cyclic barriers are sequential as the thread which is being passed to initialize cyclic barrier is the one which
+ * completes first and doesn't have to wait.
+ * @author Mihir
+ *
+ */
 public class CyclicBarrierDemoForVIPDarshan {
 
     public static void main(String args[])

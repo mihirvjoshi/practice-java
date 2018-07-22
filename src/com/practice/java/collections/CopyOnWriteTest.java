@@ -1,4 +1,4 @@
-package com.practice.java.threads.concurrent;
+package com.practice.java.collections;
 
 import java.util.Arrays;
 import java.util.concurrent.CopyOnWriteArrayList;

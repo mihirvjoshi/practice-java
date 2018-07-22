@@ -4,9 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PowerSet {
-	void powerset(int arr[]){
+	
+	void powersetLessEfficient(int arr[]){
 		Set<Set> powerSet = new HashSet<Set>();
-		System.out.println("{}");
+		powerSet.add(new HashSet());
 		for (int i = 0; i < arr.length; i++) {
 			Set<Integer> subSet = new HashSet<Integer>();
 			subSet.add(arr[i]);
@@ -39,8 +40,23 @@ public class PowerSet {
 		powerset(arr, start, power, size, powerSet);
 	}
 	
+	void powersetMostEfficient(int arr[], int start, String subset){
+		String newSubset="";
+		if(start==arr.length)return;
+		for (int i = start; i < arr.length; i++) {
+			newSubset=subset+",";			
+			newSubset=newSubset+arr[i];
+			powersetMostEfficient(arr, i+1, newSubset);
+			System.out.println(newSubset.substring(1, newSubset.length()));
+		}
+	}
+	
 	public static void main(String[] args) {
-		int[] arr = {1,2,3,4,5};
-		new PowerSet().powerset(arr);
+		int[] arr = {1,2,3,4,4};
+//		new PowerSet().powerset(arr);
+		System.out.println("============================================");
+		int[] arr1 = {1,2,3,4,5};
+//		new PowerSet().powerset(arr1);
+		new PowerSet().powersetMostEfficient(arr1, 0, "");
 	}
 }

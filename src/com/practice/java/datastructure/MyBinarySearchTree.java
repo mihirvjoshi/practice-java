@@ -4,11 +4,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class MyBinarySearchTree {
-
 	private Node root;	
 	
-	private MyBinarySearchTree(Node root){ this.root=root;}
-	
+	private MyBinarySearchTree(Node root){ this.root=root;}	
+	private MyBinarySearchTree(){ this.root=null;}
 	private MyBinarySearchTree(int data) { 
 		this.root = new Node(data);
 	}
@@ -178,6 +177,14 @@ public class MyBinarySearchTree {
 		printRightSubTree(root.right, false);
 	}
 	
+	public int sumOfBST(Node root, int sum) {
+		if (root == null)
+			return 0;
+		sum = sum + root.data + sumOfBST(root.left, sum)
+				+ sumOfBST(root.right, sum);
+		return sum;
+	}
+	
 	private void printLeftSubTree(Node root, boolean isRight){
 		if(root==null) return;
 		if(!isRight){
@@ -204,6 +211,16 @@ public class MyBinarySearchTree {
 		}
 	}
 
+	public Node merge(Node root1, Node root2){
+		if(root1==null) return root2;
+		if(root2==null) return root1;
+		Node newTree = null; 
+		newTree=new Node(root1.data+root2.data);
+		newTree.left = merge(root1.left, root2.left);
+		newTree.right = merge(root1.right, root2.right);
+		return newTree;
+	}
+	
 	class Node {
 		int data;
 		private Node left;
@@ -217,50 +234,30 @@ public class MyBinarySearchTree {
 	}
 	
 	public static void main(String args[]){
-//		MyBinarySearchTree tree = new MyBinarySearchTree(6);
-//		tree.insertNode(4);
-//		tree.insertNode(10);
-//		tree.insertNode(5);
-//		tree.insertNode(3);
-//		tree.insertNode(2);
-//		tree.insertNode(7);
-		
-		
-//		System.out.println(tree.isBinarySearchTree(tree.root));
-//		tree.preorderTraverse(tree.root);
-//		System.out.println();
-//		tree.inorderTraverse(tree.root);
-//		System.out.println();
-		
-//		Node mirrorNode = tree.mirror(tree.root);
-//		tree.inorderTraverse(mirrorNode);
-//		tree.breadFirstTraverse(tree.root);
-
-		//======================= Testing for printing two BST alternately =======================
-/*		MyBinarySearchTree tree1 = new MyBinarySearchTree(6);
-		tree1.insertNode(4);
-		tree1.insertNode(10);
-		tree1.insertNode(5);
+		MyBinarySearchTree tree1 = new MyBinarySearchTree(10);
+		tree1.insertNode(6);
+		tree1.insertNode(15);
 		tree1.insertNode(3);
-		tree1.insertNode(2);
+		tree1.insertNode(9);
+		tree1.insertNode(13);
+		tree1.insertNode(20);
+		tree1.insertNode(1);
+		tree1.insertNode(5);
 		tree1.insertNode(7);
-		System.out.println("=====================================");
-		tree1.boundaryTraversal(tree1.root);
-		System.out.println();
-		System.out.println("=====================================");
-*/		MyBinarySearchTree tree2 = new MyBinarySearchTree(30);
-		tree2.insertNode(20);
-		tree2.insertNode(40);
-		tree2.insertNode(10);
-		tree2.insertNode(25);
-		tree2.insertNode(5);
+
+		MyBinarySearchTree tree2 = new MyBinarySearchTree(20);
 		tree2.insertNode(15);
+		tree2.insertNode(25);
+		tree2.insertNode(10);
+		tree2.insertNode(18);
+		tree2.insertNode(22);
 		tree2.insertNode(28);
-		tree2.insertNode(35);
-		tree2.insertNode(50);
-		tree2.insertNode(41);
-//		tree2.inorderTraverse(tree2.root);
-		tree2.boundaryTraversal(tree2.root);	
+		
+		MyBinarySearchTree myMergedTree = new MyBinarySearchTree();
+		myMergedTree.root = tree1.merge(tree1.root, tree2.root);
+		myMergedTree.inorderTraverse(myMergedTree.root);
+//		tree2.boundaryTraversal(tree2.root);
+//		System.out.println(tree2.sumOfBST(tree2.root, 0));
 //		tree1.inorderTraverseTwoTrees(tree1.root, tree2.root);
 		//==================================================================================================
 	}
